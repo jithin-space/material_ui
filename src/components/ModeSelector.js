@@ -3,6 +3,11 @@ import Paper from '@material-ui/core/Paper'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 
+/*
+* Mode Selector class
+*/
+
+const MODES=["Daily","Monthly","User","Period"];
 class ModeSelector extends Component{
 
   constructor(props){
@@ -13,23 +18,23 @@ class ModeSelector extends Component{
   handleChange(event,value){
       this.props.onhandleChange(value);
   }
-  render(){
-    return(
-      <Paper>
-        <Tabs
-            value={this.props.mode}
-            onChange={this.handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            centered
-          >
-            <Tab label="Daily" value="Daily"/>
-            <Tab label="User" value="User"/>
-            <Tab label="Period" value="Period" />
-          </Tabs>
-      </Paper>
 
-    )
+  render(){
+      let modes = MODES;
+      return(
+        <Paper>
+          <Tabs
+              value={this.props.mode}
+              onChange={this.handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              centered>
+              {modes.map(mode=>{
+                return <Tab label={mode} value={mode}/>
+              })}
+            </Tabs>
+        </Paper>
+      );
   }
 }
 

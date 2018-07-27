@@ -4,33 +4,29 @@ import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsPr
 import DatePicker from 'material-ui-pickers/DatePicker';
 
 
-
-export default class Daily extends PureComponent {
+export default class MonthlySelector extends PureComponent {
 
   constructor(props){
     super(props);
     this.handleChange = this.handleChange.bind(this);
   }
 
-
   handleChange = (date) => {
     this.props.onChange(date);
   }
 
   render() {
-
-    const { currentDate } = this.props;
-
-  return (
+    const { currentMonth } = this.props;
+    return (
       <MuiPickersUtilsProvider  utils={DateFnsUtils}>
         <DatePicker
-          label='Date:'
-          value={currentDate}
+          label='Month:'
+          value={currentMonth}
           onChange={this.handleChange}
           autoOk={true}
           clearLabel='Clear'
           disableFuture={true}
-          format='DD/MM/YYYY'
+          format='MMM YYYY'
           leftArrowIcon='<<'
           rightArrowIcon='>>'
         />

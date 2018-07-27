@@ -9,7 +9,6 @@ export default class PeriodSelector extends PureComponent {
     super(props);
     this.handleFromDateChange = this.handleFromDateChange.bind(this);
     this.handleToDateChange = this.handleToDateChange.bind(this);
-
   }
 
   handleFromDateChange = (date) => {
@@ -21,14 +20,12 @@ export default class PeriodSelector extends PureComponent {
   }
 
   render() {
-
-    const { selectedFromDate ,selectedToDate } = this.props.current;
-
+    const { from ,to } = this.props.current;
     return (
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <DatePicker
           label="From:"
-          value={this.props.current.from}
+          value={from}
           onChange={this.handleFromDateChange}
           autoOk={true}
           clearLabel='Clear'
@@ -40,7 +37,7 @@ export default class PeriodSelector extends PureComponent {
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <DatePicker
             label="To:"
-            value={this.props.current.to}
+            value={to}
             onChange={this.handleToDateChange}
             autoOk={true}
             clearLabel='Clear'
@@ -51,7 +48,6 @@ export default class PeriodSelector extends PureComponent {
           />
         </MuiPickersUtilsProvider>
       </MuiPickersUtilsProvider>
-
     );
   }
 }

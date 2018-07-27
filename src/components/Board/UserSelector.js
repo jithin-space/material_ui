@@ -26,7 +26,7 @@ class UserSelector extends Component{
             input={<Input name="user" />}
             autoWidth
           >
-            <MenuItem value="All">
+            <MenuItem value="">
               <em>All</em>
             </MenuItem>
             {this.props.data.map((element)=>{

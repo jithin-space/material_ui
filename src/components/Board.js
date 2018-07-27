@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import LeftPane from './Board/LeftPane'
 import RightPane from './Board/RightPane'
+
 class Board extends Component{
 
   constructor(props){
@@ -10,6 +11,7 @@ class Board extends Component{
     this.state = {
       date : new Date(),
       user : '',
+      month: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
       period :{
         from : new Date(new Date().getFullYear(), 0, 1),
         to : new Date()
@@ -18,6 +20,8 @@ class Board extends Component{
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleUserChange = this.handleUserChange.bind(this);
     this.handlePeriodChange = this.handlePeriodChange.bind(this);
+    this.handleModeChange = this.handleModeChange.bind(this);
+    this.handleMonthChange = this.handleMonthChange.bind(this);
   }
 
   handleDateChange(date){
@@ -36,20 +40,38 @@ class Board extends Component{
       period: values
     })
   }
+
+  handleMonthChange(month){
+    this.setState({
+      month: month
+    })
+  }
+
+  handleModeChange(mode,value){
+
+  (mode==="User")?this.setState({ user : value}):this.setState({month: value });
+    this.props.onhandleChange(mode);
+  }
   render(){
+
     return(
-      <Grid container xs={12} spacing={24}>
+      <Grid container xs={12} spacing={8} margin={0}>
         <Grid item xs={2} >
-            <Paper align='center'>
+            <Paper >
               <LeftPane mode={this.props.mode} data={this.props.data} conf={this.state}
                 onDateChange={this.handleDateChange}
                 onUserChange={this.handleUserChange}
-                onPeriodChange={this.handlePeriodChange}/>
+                onPeriodChange={this.handlePeriodChange}
+                onMonthChange={this.handleMonthChange}/>
             </Paper>
           </Grid>
           <Grid item xs={10} >
             <Paper>
-              <RightPane mode={this.props.mode} conf={this.state} data={this.props.data}/>
+              <RightPane mode={this.props.mode}
+                 conf={this.state}
+                  data={this.props.data}
+                  onMonthChange={this.handleMonthChange}
+                   onModeChange={this.handleModeChange}/>
             </Paper>
           </Grid>
       </Grid>

@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
-
 import Header from './components/Header'
 import ModeSelector from './components/ModeSelector'
+import CustomizedSnackbars from './components/CustomizedSnackbars'
 import Board from './components/Board'
 import './App.css';
 
-
-
-
-
+/*
+* Main Application class
+*/
 class App extends Component {
 
   constructor(props){
@@ -20,32 +18,28 @@ class App extends Component {
     }
     this.handleModeChange = this.handleModeChange.bind(this);
   }
-
-  handleModeChange(value){
+  // when mode changes
+  handleModeChange(mode){
     this.setState({
-      mode : value
+      mode : mode
     })
   }
-
+  // when component is mounted
   componentDidMount(){
      fetch('http://192.168.1.190/api/attendance')
      .then(results=>{
        return results.json();
      }).then(data => {
-       let dataObj=_.groupBy(data, 'marked_by');
-       this.setState({ attendances: dataObj });
-
+       this.setState({ attendances: data });
      });
   }
-
-
   render() {
-
     return (
-      <div>
-        <Header/><br/>
+      <div style={{ padding: 20 }}>
+        {/* <Header/><br/> */}
+        <CustomizedSnackbars/>
         <ModeSelector mode={this.state.mode} onhandleChange={this.handleModeChange} /><br/>
-        <Board mode={this.state.mode} data={this.state.attendances} />
+        <Board mode={this.state.mode} data={this.state.attendances} onhandleChange={this.handleModeChange} />
       </div>
     );
   }

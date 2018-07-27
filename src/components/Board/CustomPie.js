@@ -1,11 +1,7 @@
 import React, {
     Component
 } from 'react';
-import  {PieChart, Pie, Sector,Cell,ResponsiveContainer} from 'recharts';
-
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
-const RADIAN = Math.PI / 180;
+import  {PieChart, Pie, Sector,ResponsiveContainer} from 'recharts';
 
 const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
@@ -20,8 +16,6 @@ const renderActiveShape = (props) => {
   const ex = mx + (cos >= 0 ? 1 : -1) * 22;
   const ey = my;
   const textAnchor = cos >= 0 ? 'start' : 'end';
-
-
   return (
     <g>
       <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
@@ -54,35 +48,21 @@ const renderActiveShape = (props) => {
 };
 
 
-
 class CustomPie extends Component{
-
   constructor(props){
     super(props);
     this.state={
       activeIndex: 0
     }
-
     this.onPieEnter = this.onPieEnter.bind(this);
   }
-
   onPieEnter = (data, index)=> {
     this.setState({
       activeIndex: index,
     });
   }
 
-
   render(){
-
-
-    const reducer = (accumulator, currentValue) => {
-    return  accumulator + parseInt(currentValue.value);
-
-    }
-    let total = this.props.data.value.reduce(reducer,0);
-
-  
 
     return(
        <ResponsiveContainer width="80%" height="100%">
@@ -95,9 +75,7 @@ class CustomPie extends Component{
            innerRadius={'50%'}
            outerRadius={'80%'}
            onMouseEnter={this.onPieEnter}
-
          >
-
          </Pie></PieChart></ResponsiveContainer>);
   }
 }
